@@ -1,0 +1,66 @@
+---
+title: "codereportr"
+format: gfm
+---
+<!-- README.md is generated from README.qmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# codereportr
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of codereportr is to make it easier to check reproduction packages for data/code reviews
+
+## Installation
+
+You can install the development version of codereportr like so:
+
+``` r
+pak::pak("JBGruber/codereportr")
+```
+
+## Example
+
+This is a basic example which shows how to turn a single R script into a code report using the default [Quarto template](https://github.com/JBGruber/codereportr/blob/main/inst/template.qmd).
+It uses a small [example script](https://github.com/JBGruber/codereportr/blob/main/inst/example_script.R) that comes with the packagage.
+
+```{r example}
+library(codereportr)
+create_report(
+  input_files = system.file("example_script.R", package = "codereportr"),
+  output_file = "code_report.qmd"
+)
+```
+
+The output will look like this:
+
+```{r}
+#| output: asis
+#| echo: false
+lines <- readLines("code_report.qmd")
+lines <- paste("\t", lines)
+cat(lines, sep = "\n")
+```
+
+Note that each runnable chunk is put separately into the quarto file, so it becomes easier to find where an output, warning, or error originates in the rendered version.
+
+To render the code, you need [Quarto](https://quarto.org):
+
+```bash
+quarto render code_report.qmd
+```
+
+```{r}
+#| echo: false
+#| output: false
+file.remove("code_report.qmd")
+```

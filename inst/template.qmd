@@ -1,0 +1,40 @@
+---
+title: {{TITLE}}
+date: today
+format:
+  html:
+    toc: true
+    toc_depth: 3
+    toc_float: true
+    number_sections: true
+execute: 
+  echo: true
+  warning: true
+  error: true
+---
+
+# Introduction
+
+This is a code report of:
+
+{{INPUT_FILES}}
+
+```{r}
+start <- Sys.time() # note start time for later
+```
+
+# Code
+
+{{CODE}}
+
+
+# wrap up
+
+Some session information.
+
+```{r}
+sessionInfo()
+Sys.time()
+# note how long the script takes to (re-)run
+Sys.time() - start
+```
