@@ -8,7 +8,8 @@ create_report(
   input_files,
   output_file = "code_report.qmd",
   title = "Code Report",
-  template = "template.qmd"
+  template = system.file("template.qmd", package = "codereportr"),
+  check_installed_dependencies = TRUE
 )
 }
 \arguments{
@@ -19,6 +20,8 @@ create_report(
 \item{title}{Title for the Quarto document (default: filename)}
 
 \item{template}{a qmd template containing placeholeders for  title, input_files, and code}
+
+\item{check_installed_dependencies}{run \code{\link[=check_dependencies]{check_dependencies()}} on the \code{output_file} after creation.}
 }
 \value{
 Invisible NULL; writes Quarto file as side effect

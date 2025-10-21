@@ -8,6 +8,7 @@
 #' @param output_file path to the output Quarto file (default: input file with .qmd extension)
 #' @param title Title for the Quarto document (default: filename)
 #' @param template a qmd template containing placeholeders for  title, input_files, and code
+#' @param check_installed_dependencies run [check_dependencies()] on the `output_file` after creation.
 #'
 #' @return Invisible NULL; writes Quarto file as side effect
 #' @export
@@ -20,7 +21,8 @@ create_report <- function(
   input_files,
   output_file = "code_report.qmd",
   title = "Code Report",
-  template = system.file("template.qmd", package = "codereportr")
+  template = system.file("template.qmd", package = "codereportr"),
+  check_installed_dependencies = TRUE
 ) {
   if (!all(file.exists(input_files))) {
     cli::cli_abort("Input file {.path {input_files}} does not exist.")
@@ -47,6 +49,9 @@ create_report <- function(
   cli::cli_alert_success(
     "Successfully converted {input_files} to {output_file}"
   )
+  if (check_installed_dependencies) {
+    check_dependencies(output_file)
+  }
   invisible(output_file)
 }
 
