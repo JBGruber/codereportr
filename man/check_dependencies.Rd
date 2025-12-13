@@ -4,11 +4,13 @@
 \alias{check_dependencies}
 \title{Check and Install Package Dependencies}
 \usage{
-check_dependencies(file)
+check_dependencies(file, ...)
 }
 \arguments{
 \item{file}{Character string. Path to an R script (.R), R Markdown (.Rmd),
 or Quarto (.qmd) file from which to extract dependencies.}
+
+\item{...}{additional arguments passed on to \link[rlang:is_installed]{rlang::check_installed}}
 }
 \value{
 Invisibly returns a character vector of package dependencies found

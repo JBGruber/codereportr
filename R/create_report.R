@@ -71,7 +71,7 @@ extract_runnable_chunks <- function(lines) {
     }
     current_chunk <- c(current_chunk, line)
     # Check if we have a complete expression
-    statement_len <- tryCatch(
+    is_complete <- tryCatch(
       expr = {
         paste(current_chunk, collapse = "\n") |>
           parse(text = _, keep.source = FALSE) |>
@@ -79,12 +79,16 @@ extract_runnable_chunks <- function(lines) {
       },
       warning = function(w) {},
       error = function(e) {
-        !grepl("unexpected end of input", e$message, ignore.case = TRUE)
+        !grepl(
+          "unexpected end of input|INCOMPLETE_STRING",
+          e$message,
+          ignore.case = TRUE
+        )
       }
     )
 
     # If complete, save chunk and start new one
-    if (statement_len > 0) {
+    if (is_complete > 0) {
       chunks[[length(chunks) + 1]] <- current_chunk
       current_chunk <- character(0)
     }
